@@ -1,33 +1,59 @@
-<?xml version="1.0" ?> 
+<?xml version="1.0" ?>
 <project name="AntExample1" default="war">
+
+	<property name="jetty.home" value="${user.home}/code/intalio/distros/jetty-distribution-8.1.5.v20120716" />
+
+	<path id="compile.jspc">
+		<fileset dir="${jetty.home}">
+			<include name="lib/servlet-api-*.jar" />
+			<include name="lib/jsp/*.jar" />
+		</fileset>
+	</path>
 
 	<path id="compile.classpath">
 		<fileset dir="WebContent/WEB-INF/lib">
-			<include name="*.jar"/>
+			<include name="*.jar" />
 		</fileset>
+		<path refid="compile.jspc" />
 	</path>
-	
-	<target name="init">
-		<mkdir dir="build/classes"/>
-		<mkdir dir="dist" />
+
+	<target name="jspc" depends="compile">
+		<taskdef classname="org.apache.jasper.JspC" name="jasper2" classpathref="compile.jspc" />
+		<jasper2 validateXml="false"
+			uriroot="WebContent"
+			addWebXmlMappings="true"
+			webXmlFragment="WebContent/WEB-INF/generated_web.xml"
+			compilerSourceVM="1.6"
+			compilerTargetVM="1.6"
+			outputDir="build/gen-src"
+			verbose="9" />
 	</target>
-	
-	<target name="compile" depends="init" >
-		<javac destdir="build/classes" debug="true" srcdir="src">
-			<classpath refid="compile.classpath"/>
+
+	<target name="init">
+		<mkdir dir="build/classes" />
+		<mkdir dir="build/gen-src" />
+		<mkdir dir="dist" />
+		<copy todir="build/gen-src">
+			<fileset dir="src" includes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="compile" depends="init">
+		<javac destdir="build/classes" debug="true" srcdir="build/gen-src">
+			<classpath refid="compile.classpath" />
 		</javac>
 	</target>
-	
-	<target name="war" depends="compile">
+
+	<target name="war" depends="jspc">
 		<war destfile="dist/AntExample.war" webxml="WebContent/WEB-INF/web.xml">
-			<fileset dir="WebContent"/>
-			<classes dir="build/classes"/>
+			<fileset dir="WebContent" />
+			<classes dir="build/classes" />
 		</war>
 	</target>
-	
+
 	<target name="clean">
 		<delete dir="dist" />
 		<delete dir="build" />
 	</target>
-	
+
 </project>
