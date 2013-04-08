@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <project name="AntExample1" default="war">
 
-	<property name="jetty.home" value="${user.home}/code/intalio/distros/jetty-distribution-8.1.5.v20120716" />
+	<property name="jetty.home" value="${user.home}/code/intalio/distros/jetty-distribution-8.1.8.v20121106" />
 
 	<path id="compile.jspc">
 		<fileset dir="${jetty.home}">
