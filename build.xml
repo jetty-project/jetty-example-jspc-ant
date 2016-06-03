@@ -1,12 +1,13 @@
 <?xml version="1.0" ?>
 <project name="AntExample1" default="war">
 
-	<property name="jetty.home" value="${user.home}/code/intalio/distros/jetty-distribution-8.1.8.v20121106" />
+	<property name="jetty.home" value="${user.home}/code/jetty/distros/jetty-distribution-9.3.9.v20160517" />
 
 	<path id="compile.jspc">
 		<fileset dir="${jetty.home}">
 			<include name="lib/servlet-api-*.jar" />
-			<include name="lib/jsp/*.jar" />
+			<include name="lib/jetty-schemas-*.jar" />
+			<include name="lib/apache-jsp/*.jar" />
 		</fileset>
 	</path>
 
@@ -23,8 +24,8 @@
 			uriroot="WebContent"
 			addWebXmlMappings="true"
 			webXmlFragment="WebContent/WEB-INF/generated_web.xml"
-			compilerSourceVM="1.6"
-			compilerTargetVM="1.6"
+			compilerSourceVM="1.8"
+			compilerTargetVM="1.8"
 			outputDir="build/gen-src"
 			verbose="9" />
 	</target>
