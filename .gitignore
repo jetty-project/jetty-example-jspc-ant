@@ -1,6 +1,44 @@
+# eclipse
 .classpath
 .project
 .settings
+
+# ant
 build/
 dist/
-*.swp
+bin/
+
+# common junk
+*.log
+*.diff
+*.patch
+*.sw[a-p]
+*.bak
+*.backup
+*.debug
+*.dump
+
+# vim
+.*.sw[a-p]
+*~
+~*
+
+# intellij / android studio
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Mac filesystem dust
+.DS_Store
+
+# pmd
+.pmdruleset
+.pmd
+
+# netbeans
+/nbproject
+
+# merge tooling
+*.orig
+
